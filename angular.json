@@ -25,9 +25,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap-5.3.1/css/bootstrap.min.css",
+              "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/bootstrap-5.3.1/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -87,9 +91,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap-5.3.1/css/bootstrap.min.css",
+              "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/bootstrap-5.3.1/js/bootstrap.min.js"
+            ]
           }
         }
       }
