@@ -1,25 +1,35 @@
-<section class="container text-center">
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="font-size: 30px">
+      <i class="fi fi-rs-comment"></i>&nbsp;
+      ITSCH - ForumDB
+    </a>
+  </div>
+</nav>
+
+<section class="container text-center" id="login">
   <div class="row">
     <div class="col"></div>
     <div class="col">
-      <div class="card">
+      <div class="card mt-5">
         <div class="card-header">
           Inicio de sesión
         </div>
         <div class="card-body">
           <div class="input-group">
             <div class="input-group-text"><i class="fi fi-sr-envelope"></i></div>
-            <input class="form-control" type="email" name="input_email" id="input_email" />
+            <input class="form-control" type="email" name="input_email" placeholder="Ingrese su correo" id="input_email" />
           </div>
-          <div class="input-group">
+          <div class="input-group mt-3">
             <div class="input-group-text"><i class="fi fi-sr-key"></i></div>
-            <input type="password" name="input_pass" id="input_pass" class="form-control">
+            <input type="password" name="input_pass" id="input_pass" placeholder="Ingrese su contraseña" class="form-control" />
           </div>
         </div>
         <div class="card-footer">
-          <input type="button" value="Iniciar sesión" class="btn btn-primary" />
+          <input type="button" value="Iniciar sesión" class="btn btn-primary float-end" (click)="login()"/>
         </div>
       </div>
+      <input type="button" value="Registrarse" class="btn btn-link" routerLink="home"/>
     </div>
     <div class="col"></div>
   </div>
