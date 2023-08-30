@@ -6,19 +6,25 @@
   </div>
   <div class="row">
     <div class="col">
-      <table class="table table-dark table-hover">
+      <table class="table table-dark table-hover mt-5">
         <thead>
-        <tr>
+        <tr class="text-center">
           <th>#</th>
           <th>Tema</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let question of questions; index as i">
-          <td>{{i+1}}</td>
+        <tr *ngFor="let question of questions; let i=index">
+          <td class="text-center">{{i+1}}</td>
           <td>{{question}}</td>
-          <td></td>
+          <td class="text-center">
+            <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
+            &nbsp;
+            <button class="btn btn-outline-secondary"><i class="fi fi-rr-edit"></i></button>
+            &nbsp;
+            <button class="btn btn-outline-danger"><i class="fi fi-br-trash"></i></button>
+          </td>
         </tr>
         </tbody>
       </table>
