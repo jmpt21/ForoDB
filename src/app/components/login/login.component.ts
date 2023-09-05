@@ -27,14 +27,10 @@ export class LoginComponent {
       catchError((err) => {
         this.showError = true
         this.showLoading = false
-        return throwError(err)
+        return throwError(() => err)
       })
     ).subscribe(
-      (value) => {
-        /*if(Object.values(value)){
-          alert('Bienvenido.')
-          this.router.navigate( ['/home'] ).then().catch()
-        }*/
+      () => {
         this.showError = false
         this.showLoading = false
         this.router.navigate( ['/home'] ).then().catch()
