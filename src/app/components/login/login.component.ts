@@ -37,4 +37,8 @@ export class LoginComponent {
       }
     )
   }
+
+  quitError(){
+    this.showError = false
+  }
 }

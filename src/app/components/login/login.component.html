@@ -18,11 +18,11 @@
         <div class="card-body">
           <div class="input-group">
             <div class="input-group-text"><i class="fi fi-sr-envelope"></i></div>
-            <input class="form-control" type="email" name="input_email" placeholder="Ingrese su correo" id="input_email" [(ngModel)]="email" />
+            <input class="form-control" type="email" name="input_email" placeholder="Ingrese su correo" id="input_email" [(ngModel)]="email" (click)="quitError()" />
           </div>
           <div class="input-group mt-3">
             <div class="input-group-text"><i class="fi fi-sr-key"></i></div>
-            <input type="password" name="input_pass" id="input_pass" placeholder="Ingrese su contraseña" class="form-control" [(ngModel)]="pass" />
+            <input type="password" name="input_pass" id="input_pass" placeholder="Ingrese su contraseña" class="form-control" [(ngModel)]="pass" (click)="quitError()" />
           </div>
         </div>
         <div class="alert alert-danger" role="alert" *ngIf="showError"><span class="text-danger">Error de usuario o contraseña</span></div>
