@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
+import { ApiRestService } from "../../services/api-rest.service";
+import { catchError, throwError } from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,35 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent {
   title: string = 'Bienvenido a ForumDB'
-  constructor(private router: Router) {
+
+  email: string = ''
+  pass: string = ''
+
+  showError = false
+  showLoading = false
+
+  constructor(private router: Router, private api: ApiRestService) {
   }
 
   login(): void{
-    this.router.navigate( ['/home'] ).then().catch()
+    this.showLoading = true
+
+    this.api.login(this.email, this.pass).pipe(
+      catchError((err) => {
+        this.showError = true
+        this.showLoading = false
+        return throwError(err)
+      })
+    ).subscribe(
+      (value) => {
+        /*if(Object.values(value)){
+          alert('Bienvenido.')
+          this.router.navigate( ['/home'] ).then().catch()
+        }*/
+        this.showError = false
+        this.showLoading = false
+        this.router.navigate( ['/home'] ).then().catch()
+      }
+    )
   }
 }

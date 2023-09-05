@@ -18,15 +18,16 @@
         <div class="card-body">
           <div class="input-group">
             <div class="input-group-text"><i class="fi fi-sr-envelope"></i></div>
-            <input class="form-control" type="email" name="input_email" placeholder="Ingrese su correo" id="input_email" />
+            <input class="form-control" type="email" name="input_email" placeholder="Ingrese su correo" id="input_email" [(ngModel)]="email" />
           </div>
           <div class="input-group mt-3">
             <div class="input-group-text"><i class="fi fi-sr-key"></i></div>
-            <input type="password" name="input_pass" id="input_pass" placeholder="Ingrese su contraseña" class="form-control" />
+            <input type="password" name="input_pass" id="input_pass" placeholder="Ingrese su contraseña" class="form-control" [(ngModel)]="pass" />
           </div>
         </div>
+        <div class="alert alert-danger" role="alert" *ngIf="showError"><span class="text-danger">Error de usuario o contraseña</span></div>
         <div class="card-footer">
-          <input type="button" value="Iniciar sesión" class="btn btn-primary float-end" (click)="login()"/>
+          <button class="btn btn-secondary float-end" (click)="login()"><div class="spinner-border text-primary" *ngIf="showLoading"></div>Entrar</button>
         </div>
       </div>
       <input type="button" value="Registrarse" class="btn btn-link" routerLink="home"/>
