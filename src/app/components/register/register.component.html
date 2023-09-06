@@ -4,7 +4,7 @@
     <div class="col-lg-6">
       <div class="card mt-5">
         <div class="card-header">
-          Inicio de sesión
+          Registro de usuario
         </div>
         <div class="card-body">
           <div class="input-group">
@@ -18,15 +18,14 @@
                    name="input_pass" placeholder="Ingrese su contraseña" type="password"/>
           </div>
         </div>
-        <div *ngIf="showError" class="alert alert-danger" role="alert">
-          <span class="text-danger">Error de usuario o contraseña</span>
-        </div>
+        <div *ngIf="showError" class="alert alert-danger" role="alert"><span
+          class="text-danger">Error de registro.</span></div>
         <div class="card-footer">
-          <button (click)="login()" class="btn btn-secondary float-end">Entrar</button>
+          <button (click)="register()" class="btn btn-secondary float-end">Registrarse</button>
           <div *ngIf="showLoading" class="spinner-border text-primary float-end"></div>
         </div>
       </div>
-      <a href="/register">Registrarse</a>
+      <a href="/login">Regresar al inicio de sesión</a>
     </div>
     <div class="col-lg-3"></div>
   </div>
