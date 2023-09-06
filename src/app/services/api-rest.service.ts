@@ -6,8 +6,14 @@ import { HttpClient } from "@angular/common/http";
 } )
 export class ApiRestService {
   private loginURL : string = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='
-  private createURL : string = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
+  private createUserURL : string = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
   private API_KEY : string = 'AIzaSyAQRRKOsKRuxWU5jNXleKaTyT3EigWkK7g'
+
+  private baseURL : string = 'https://firestore.googleapis.com/v1/projects/foro-dudas-itsch/databases/(default)/documents/'
+  private questionsURL : string = 'preguntas'
+  // private getAllQURL : string = 'preguntas'
+  // private updateQURL : string = ''
+  // private deleteQURL : string = ''
 
   constructor(private http : HttpClient) {
   }
@@ -23,12 +29,36 @@ export class ApiRestService {
   }
 
   register(email : string, password : string) {
-    return this.http.post( `${ this.createURL }${ this.API_KEY }`,
+    return this.http.post( `${ this.createUserURL }${ this.API_KEY }`,
       {
         email: email,
         password: password,
         returnSecureToken: true
       }
     )
+  }
+
+  getAllQuestions(){
+    return this.http.get(`${this.baseURL}${this.questionsURL}`)
+  }
+
+  createQuestion(categoria : string, pregunta: string, fecha : string, correo : string){
+    return this.http.post(`${this.baseURL}${this.questionsURL}`,
+      {
+
+      }
+    )
+  }
+
+  updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){
+    return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}`,
+      {
+
+      }
+    )
+  }
+
+  deleteQuestion(id : string){
+    return this.http.delete(`${this.baseURL}${this.questionsURL}/${id}`)
   }
 }

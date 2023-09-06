@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiRestService } from "../../services/api-rest.service";
+import { catchError, throwError } from "rxjs";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   /*questions = [
     {id: 1, question: '¿Cuál es la capital de Francia?'},
     {id: 2, question: '¿De qué está hecha la luna?'},
@@ -17,4 +19,23 @@ export class HomeComponent {
     '¿De qué está hecho Marte?',
   ]
 
+  constructor(private api : ApiRestService) {}
+
+  getAll(){
+    this.api.getAllQuestions()
+      .pipe(
+        catchError(err => {
+          return throwError(() => {})
+        })
+      )
+      .subscribe(
+        (data) => {
+          console.log(Object.values(data))
+        }
+      )
+  }
+
+  ngOnInit() : void {
+    this.getAll()
+  }
 }
