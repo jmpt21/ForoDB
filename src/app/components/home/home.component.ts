@@ -24,18 +24,28 @@ export class HomeComponent implements OnInit{
   getAll(){
     this.api.getAllQuestions()
       .pipe(
-        catchError(err => {
+        catchError(() => {
           return throwError(() => {})
         })
       )
       .subscribe(
         (data) => {
-          console.log(Object.values(data))
+          let d = Object.values(data)[0][0]['fields']
+
+          let json = {
+            categoria : d['categoria']['stringValue'],
+            pregunta : d['pregunta']['stringValue'],
+            fecha : d['fecha']['timestampValue'],
+            correo : d['correo']['stringValue']
+          }
+
+          console.log(json)
         }
       )
   }
 
   ngOnInit() : void {
     this.getAll()
+    //this.q = this.api.getAllQuestions()
   }
 }
