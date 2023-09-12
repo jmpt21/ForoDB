@@ -19,6 +19,11 @@ export class HomeComponent implements OnInit{
     '¿De qué está hecho Marte?',
   ]
 
+  questionsList: any = []
+
+  category: string = ''
+  newP: string = ''
+
   constructor(private api : ApiRestService) {}
 
   getAll(){
@@ -30,20 +35,25 @@ export class HomeComponent implements OnInit{
       )
       .subscribe(
         (data) => {
-          let d = Object.values(data)[0][0]['fields']
-
-          let json = {
-            categoria : d['categoria']['stringValue'],
-            pregunta : d['pregunta']['stringValue'],
-            fecha : d['fecha']['timestampValue'],
-            correo : d['correo']['stringValue']
-          }
-
-          console.log(json)
+          console.log(Object.values(data)[0])
+          this.questionsList = Object.values(data)[0]
         }
       )
   }
 
+  crearPregunta(){
+    const correo = localStorage.getItem('correo') || ''
+
+    this.api.createQuestion(this.category, this.newP, new Date().toISOString(), correo).pipe().subscribe({
+      next: data => {
+        console.log(data)
+        this.getAll()
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
   ngOnInit() : void {
     this.getAll()
     //this.q = this.api.getAllQuestions()

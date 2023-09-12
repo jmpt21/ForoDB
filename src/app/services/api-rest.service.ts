@@ -43,11 +43,24 @@ export class ApiRestService {
   }
 
   createQuestion(categoria : string, pregunta: string, fecha : string, correo : string){
-    return this.http.post(`${this.baseURL}${this.questionsURL}`,
-      {
-
+    const newDoc = {
+      fields : {
+        categoria : {
+          stringValue : categoria
+        },
+        correo : {
+          stringValue : correo
+        },
+        fecha : {
+          timestampValue : fecha
+        },
+        pregunta : {
+          stringValue : pregunta
+        }
       }
-    )
+    }
+
+    return this.http.post(`${this.baseURL}${this.questionsURL}`, newDoc)
   }
 
   updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){

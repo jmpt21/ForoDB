@@ -1,7 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <div class="col"></div>
+      <div class="col">
+        <div class="card">
+          <div class="card-header">Agregar pregunta</div>
+          <div class="card-body">
+            <select class="form-select" [(ngModel)]="category">
+              <option value="General">General</option>
+              <option value="Programación">Programación</option>
+              <option value="Redes">Redes</option>
+            </select>
 
+            <input type="text" name="textP" id="textP" class="form-control" placeholder="Escribe tu pregunta" [(ngModel)]="newP" />
+            <button class="btn btn-primary btn-sm mt-1" (click)="crearPregunta()">
+              <i class="fi fi-rr-add"></i>
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
     </div>
   </div>
   <div class="row">
@@ -15,9 +34,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let question of questions; let i=index">
+        <tr *ngFor="let question of questionsList; let i=index">
           <td class="text-center">{{i+1}}</td>
-          <td>{{question}}</td>
+          <td>{{question['fields'].pregunta.stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;
