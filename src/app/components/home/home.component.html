@@ -30,6 +30,7 @@
         <tr class="text-center">
           <th>#</th>
           <th>Tema</th>
+          <th>Usuario</th>
           <th>Acciones</th>
         </tr>
         </thead>
@@ -37,12 +38,13 @@
         <tr *ngFor="let question of questionsList; let i=index">
           <td class="text-center">{{i+1}}</td>
           <td>{{question['fields'].pregunta.stringValue}}</td>
+          <td>{{question['fields'].correo.stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;
             <button class="btn btn-outline-secondary"><i class="fi fi-rr-edit"></i></button>
             &nbsp;
-            <button class="btn btn-outline-danger"><i class="fi fi-br-trash"></i></button>
+            <button class="btn btn-outline-danger" (click)="eliminarPregunta(question['name'].split('/').pop())"><i class="fi fi-br-trash"></i></button>
           </td>
         </tr>
         </tbody>

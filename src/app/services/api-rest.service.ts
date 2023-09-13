@@ -39,7 +39,7 @@ export class ApiRestService {
   }
 
   getAllQuestions(){
-    return this.http.get(`${this.baseURL}${this.questionsURL}?pageSize=1000`)
+    return this.http.get<Object>(`${this.baseURL}${this.questionsURL}?pageSize=1000`)
   }
 
   createQuestion(categoria : string, pregunta: string, fecha : string, correo : string){
@@ -71,7 +71,7 @@ export class ApiRestService {
     )
   }
 
-  deleteQuestion(id : string){
+  deleteQuestion(id : number){
     return this.http.delete(`${this.baseURL}${this.questionsURL}/${id}`)
   }
 }

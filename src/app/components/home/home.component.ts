@@ -35,9 +35,17 @@ export class HomeComponent implements OnInit{
       )
       .subscribe(
         (data) => {
-          console.log(Object.values(data)[0])
+          //console.log(Object.values(data)[0])
           this.questionsList = Object.values(data)[0].filter((p : any) => p.hasOwnProperty("fields"))
-          //this.questionsList = Object.values(data)[0]
+          //console.log(Object.values(data))
+          /*this.questionsList = data.documents.map((p: any)=>({
+            preguntas: p.fields.pregunta.stringValue,
+            categoria: p.fields.categoria.stringValue,
+            correo: p.fields.correo.stringValue,
+            fecha: p.fields.fecha.timestampValue,
+            id: p.name.split("/").pop(),
+          }))*/
+
         }
       )
   }
@@ -51,6 +59,18 @@ export class HomeComponent implements OnInit{
     const correo = localStorage.getItem('correo') || ''
 
     this.api.createQuestion(this.category, this.newP, new Date().toISOString(), correo).pipe().subscribe({
+      next: data => {
+        console.log(data)
+        this.getAll()
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
+  eliminarPregunta(id: number){
+    this.api.deleteQuestion(id).pipe().subscribe({
       next: data => {
         console.log(data)
         this.getAll()
