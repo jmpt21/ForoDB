@@ -36,7 +36,7 @@
         <tbody>
         <tr *ngFor="let question of questionsList; let i=index">
           <td class="text-center">{{i+1}}</td>
-          <td>{{question['fields']}}</td>
+          <td>{{question['fields'].pregunta.stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;

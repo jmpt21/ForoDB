@@ -36,12 +36,18 @@ export class HomeComponent implements OnInit{
       .subscribe(
         (data) => {
           console.log(Object.values(data)[0])
-          this.questionsList = Object.values(data)[0]
+          this.questionsList = Object.values(data)[0].filter((p : any) => p.hasOwnProperty("fields"))
+          //this.questionsList = Object.values(data)[0]
         }
       )
   }
 
   crearPregunta(){
+    if ( this.category == '' || this.newP == '' ){
+      alert('Sin valores')
+      return
+    }
+
     const correo = localStorage.getItem('correo') || ''
 
     this.api.createQuestion(this.category, this.newP, new Date().toISOString(), correo).pipe().subscribe({
