@@ -34,6 +34,7 @@ export class LoginComponent {
         this.showError = false
         this.showLoading = false
         this.router.navigate( ['/home'] ).then().catch()
+        localStorage.setItem('correo', this.email)
       }
     )
   }
