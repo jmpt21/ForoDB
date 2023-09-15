@@ -66,7 +66,20 @@ export class ApiRestService {
   updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){
     return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}`,
       {
-
+        fields : {
+          categoria : {
+            stringValue : categoria
+          },
+          correo : {
+            stringValue : correo
+          },
+          fecha : {
+            timestampValue : fecha
+          },
+          pregunta : {
+            stringValue : pregunta
+          }
+        }
       }
     )
   }

@@ -6,7 +6,7 @@
         <div class="card mt-5">
           <div class="card-header">Agregar pregunta</div>
           <div class="card-body text-center">
-            <select class="form-select" [(ngModel)]="category">
+            <select class="form-select" [(ngModel)]="categoryNew">
               <option value="General">General</option>
               <option value="Programación">Programación</option>
               <option value="Redes">Redes</option>
@@ -37,12 +37,13 @@
         <tbody>
         <tr *ngFor="let question of questionsList; let i=index">
           <td class="text-center">{{i+1}}</td>
-          <td>{{question['fields'].pregunta.stringValue}}</td>
-          <td>{{question['fields'].correo.stringValue}}</td>
+          <td id="q{{i}}">{{question['fields']['pregunta'].stringValue}}</td>
+
+          <td>{{question['fields']['correo'].stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;
-            <button class="btn btn-outline-secondary"><i class="fi fi-rr-edit"></i></button>
+            <button class="btn btn-outline-secondary" (click)="onClickEdit(i)"><i class="fi fi-rr-edit"></i></button>
             &nbsp;
             <button class="btn btn-outline-danger" (click)="eliminarPregunta(question['name'].split('/').pop())"><i class="fi fi-br-trash"></i></button>
           </td>
@@ -52,3 +53,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #elseEdit>
+  <td><!--<input type="text" class="form-control" value="" (blur)="editarPregunta(question['name'].split('/').pop())" placeholder="Enter you new question" />--></td>
+</ng-template>

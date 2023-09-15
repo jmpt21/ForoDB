@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, afterRender } from '@angular/core';
 import { ApiRestService } from "../../services/api-rest.service";
 import { catchError, throwError } from "rxjs";
 
@@ -19,10 +19,16 @@ export class HomeComponent implements OnInit{
     '¿De qué está hecho Marte?',
   ]
 
+  editMode: boolean = true
+  editField: any | undefined
+
   questionsList: any = []
 
-  category: string = ''
+  categoryNew: string = ''
   newP: string = ''
+
+  categoryEdit: string = ''
+  editP: string = ''
 
   constructor(private api : ApiRestService) {}
 
@@ -51,14 +57,14 @@ export class HomeComponent implements OnInit{
   }
 
   crearPregunta(){
-    if ( this.category == '' || this.newP == '' ){
+    if ( this.categoryNew == '' || this.newP == '' ){
       alert('Sin valores')
       return
     }
 
     const correo = localStorage.getItem('correo') || ''
 
-    this.api.createQuestion(this.category, this.newP, new Date().toISOString(), correo).pipe().subscribe({
+    this.api.createQuestion(this.categoryNew, this.newP, new Date().toISOString(), correo).pipe().subscribe({
       next: data => {
         console.log(data)
         this.getAll()
@@ -83,5 +89,34 @@ export class HomeComponent implements OnInit{
   ngOnInit() : void {
     this.getAll()
     //this.q = this.api.getAllQuestions()
+  }
+
+  editarPregunta(id: string, category : string, question : string){
+    this.api.updateQuestion(category, question, new Date().toISOString(), localStorage.getItem('correo') || '', id).pipe().subscribe({
+      next: data => {
+        console.log(data)
+        this.getAll()
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
+  onClickEdit(n : number){
+    window.document.getElementById(`q${n}`)!.innerHTML =
+      `
+<select id="editSelection" class="form-select bg-dark text-white">
+  <option value="General">General</option>
+  <option value="Programación">Programación</option>
+  <option value="Redes">Redes</option>
+</select>
+<input type="text" id="editField" class="form-control bg-dark text-white" value="${this.questionsList[n]['fields']['pregunta'].stringValue}"/>
+`
+    window.document.getElementById(`q${n}`)!.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        //this.editarPregunta(this.questionsList[n]['name'].split('/').pop())
+      }
+    })
   }
 }
