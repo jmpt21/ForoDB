@@ -37,8 +37,19 @@
         <tbody>
         <tr *ngFor="let question of questionsList; let i=index">
           <td class="text-center">{{i+1}}</td>
-          <td id="q{{i}}">{{question['fields']['pregunta'].stringValue}}</td>
-
+          <td (keyup.escape)="cancelarEdicion(i)">
+            <p id="q{{i}}">{{question['fields']['pregunta'].stringValue}}</p>
+            <select id="editSelection{{i}}" class="form-select bg-dark text-white" [(ngModel)]="categoryEdit" style="display: none">
+              <option value="General">General</option>
+              <option value="Programación">Programación</option>
+              <option value="Redes">Redes</option>
+            </select>
+            <input id="e{{i}}" type="text" class="form-control bg-dark text-white" style="display: none"
+                   [(ngModel)]="editP"
+                   value="{{question['fields']['pregunta'].stringValue}}"
+                   (keyup.enter)="editarPregunta(question['name'].split('/').pop(), i)"
+                   placeholder="Enter you new question" />
+          </td>
           <td>{{question['fields']['correo'].stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
@@ -53,7 +64,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #elseEdit>
-  <td><!--<input type="text" class="form-control" value="" (blur)="editarPregunta(question['name'].split('/').pop())" placeholder="Enter you new question" />--></td>
-</ng-template>

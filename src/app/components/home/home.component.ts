@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, afterRender } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ApiRestService } from "../../services/api-rest.service";
 import { catchError, throwError } from "rxjs";
 
@@ -18,9 +18,6 @@ export class HomeComponent implements OnInit{
     '¿De qué está hecha la luna?',
     '¿De qué está hecho Marte?',
   ]
-
-  editMode: boolean = true
-  editField: any | undefined
 
   questionsList: any = []
 
@@ -91,8 +88,13 @@ export class HomeComponent implements OnInit{
     //this.q = this.api.getAllQuestions()
   }
 
-  editarPregunta(id: string, category : string, question : string){
-    this.api.updateQuestion(category, question, new Date().toISOString(), localStorage.getItem('correo') || '', id).pipe().subscribe({
+  editarPregunta(id: string, n: number){
+    if ( this.categoryEdit == '' || this.editP == '' ){
+      alert('Sin valores')
+      return
+    }
+
+    this.api.updateQuestion(this.categoryEdit, this.editP, new Date().toISOString(), localStorage.getItem('correo') || '', id).pipe().subscribe({
       next: data => {
         console.log(data)
         this.getAll()
@@ -101,22 +103,23 @@ export class HomeComponent implements OnInit{
         console.log(error)
       }
     })
+    window.document.getElementById(`q${n}`)!.style.display = 'block'
+    window.document.getElementById(`editSelection${n}`)!.style.display = 'none'
+    window.document.getElementById(`e${n}`)!.style.display = 'none'
+
+    this.editP = ''
+    this.categoryEdit = ''
   }
 
   onClickEdit(n : number){
-    window.document.getElementById(`q${n}`)!.innerHTML =
-      `
-<select id="editSelection" class="form-select bg-dark text-white">
-  <option value="General">General</option>
-  <option value="Programación">Programación</option>
-  <option value="Redes">Redes</option>
-</select>
-<input type="text" id="editField" class="form-control bg-dark text-white" value="${this.questionsList[n]['fields']['pregunta'].stringValue}"/>
-`
-    window.document.getElementById(`q${n}`)!.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        //this.editarPregunta(this.questionsList[n]['name'].split('/').pop())
-      }
-    })
+    window.document.getElementById(`q${n}`)!.style.display = 'none'
+    window.document.getElementById(`editSelection${n}`)!.style.display = 'block'
+    window.document.getElementById(`e${n}`)!.style.display = 'block'
+    window.document.getElementById(`e${n}`)!.focus()
+  }
+  cancelarEdicion(n : number){
+    window.document.getElementById(`q${n}`)!.style.display = 'block'
+    window.document.getElementById(`editSelection${n}`)!.style.display = 'none'
+    window.document.getElementById(`e${n}`)!.style.display = 'none'
   }
 }
