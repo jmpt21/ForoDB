@@ -63,7 +63,7 @@ export class ApiRestService {
     return this.http.post(`${this.baseURL}${this.questionsURL}`, newDoc)
   }
 
-  updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){
+  /*updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){
     return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}`,
       {
         fields : {
@@ -76,6 +76,17 @@ export class ApiRestService {
           fecha : {
             timestampValue : fecha
           },
+          pregunta : {
+            stringValue : pregunta
+          }
+        }
+      }
+    )
+  }*/
+  updateQuestion(pregunta: string, id : string){
+    return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}?updateMask.fieldPaths=pregunta`,
+      {
+        fields : {
           pregunta : {
             stringValue : pregunta
           }

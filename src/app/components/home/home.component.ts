@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit{
 
   categoryEdit: string = ''
   editP: string = ''
+  idQ: string = ''
 
   constructor(private api : ApiRestService) {}
 
@@ -88,7 +89,7 @@ export class HomeComponent implements OnInit{
     //this.q = this.api.getAllQuestions()
   }
 
-  editarPregunta(id: string, n: number){
+  /*editarPregunta(id: string, n: number){
     if ( this.categoryEdit == '' || this.editP == '' ){
       alert('Sin valores')
       return
@@ -109,6 +110,29 @@ export class HomeComponent implements OnInit{
 
     this.editP = ''
     this.categoryEdit = ''
+  }*/
+
+  modificarPregunta (){
+    if (this.editP == ''){
+      alert('Sin valores')
+      return
+    }
+
+    this.api.updateQuestion(this.editP, this.idQ).pipe().subscribe({
+        next: value => {
+          console.log(value)
+          this.getAll()
+        },
+        error: error => {
+          console.log(error)
+        }
+      }
+    )
+  }
+
+  getPregunta(p: any){
+    this.editP = p['fields']['pregunta']['stringValue']
+    this.idQ = p['name'].split('/').pop()
   }
 
   onClickEdit(n : number){

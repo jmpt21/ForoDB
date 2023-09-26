@@ -44,23 +44,48 @@
               <option value="Programación">Programación</option>
               <option value="Redes">Redes</option>
             </select>
-            <input id="e{{i}}" type="text" class="form-control bg-dark text-white" style="display: none"
+            <!--<input id="e{{i}}" type="text" class="form-control bg-dark text-white" style="display: none"
                    [(ngModel)]="editP"
                    value="{{question['fields']['pregunta'].stringValue}}"
                    (keyup.enter)="editarPregunta(question['name'].split('/').pop(), i)"
-                   placeholder="Enter you new question" />
+                   placeholder="Enter you new question" />-->
           </td>
           <td>{{question['fields']['correo'].stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;
-            <button class="btn btn-outline-secondary" (click)="onClickEdit(i)"><i class="fi fi-rr-edit"></i></button>
+            <!--<button class="btn btn-outline-secondary" (click)="onClickEdit(i)"><i class="fi fi-rr-edit"></i></button>-->
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            (click)="getPregunta(question)">
+              <i class="fi fi-rr-edit"></i>
+            </button>
             &nbsp;
             <button class="btn btn-outline-danger" (click)="eliminarPregunta(question['name'].split('/').pop())"><i class="fi fi-br-trash"></i></button>
           </td>
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar pregunta</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="pregunta" id="pregunta" class="form-control" [(ngModel)]="editP"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarPregunta()">Guardar</button>
+      </div>
     </div>
   </div>
 </div>
