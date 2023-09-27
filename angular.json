@@ -26,6 +26,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/assets/bootstrap-5.3.1/css/bootstrap.min.css",
               "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],
@@ -92,6 +93,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/assets/bootstrap-5.3.1/css/bootstrap.min.css",
               "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],

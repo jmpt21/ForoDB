@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ApiRestService } from "../../services/api-rest.service";
 import { catchError, throwError } from "rxjs";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit{
   editP: string = ''
   idQ: string = ''
 
-  constructor(private api : ApiRestService) {}
+  constructor(private api : ApiRestService, private toastr: ToastrService) {}
 
   getAll(){
     this.api.getAllQuestions()
@@ -56,7 +57,7 @@ export class HomeComponent implements OnInit{
 
   crearPregunta(){
     if ( this.categoryNew == '' || this.newP == '' ){
-      alert('Sin valores')
+      this.showMessageBox()
       return
     }
 
@@ -114,7 +115,7 @@ export class HomeComponent implements OnInit{
 
   modificarPregunta (){
     if (this.editP == ''){
-      alert('Sin valores')
+      this.showMessageBox()
       return
     }
 
@@ -130,6 +131,9 @@ export class HomeComponent implements OnInit{
     )
   }
 
+  showMessageBox(){
+    this.toastr.success('Campos sin valores', 'Error')
+  }
   getPregunta(p: any){
     this.editP = p['fields']['pregunta']['stringValue']
     this.idQ = p['name'].split('/').pop()

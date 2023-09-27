@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { ApiRestService } from "../../services/api-rest.service";
 import { catchError, throwError } from "rxjs";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   showError = false
   showLoading = false
 
-  constructor(private router: Router, private api: ApiRestService) {
+  constructor(private router: Router, private api: ApiRestService, private toastr: ToastrService) {
   }
 
   login(): void{
@@ -25,13 +26,15 @@ export class LoginComponent {
 
     this.api.login(this.email, this.pass).pipe(
       catchError((err) => {
-        this.showError = true
+        //this.showError = true
+        this.toastr.error('Error al iniciar sesión', 'Error')
         this.showLoading = false
         return throwError(() => err)
       })
     ).subscribe(
       () => {
-        this.showError = false
+        //this.showError = false
+        this.toastr.success('Sesión iniciada', 'Éxito')
         this.showLoading = false
         this.router.navigate( ['/home'] ).then().catch()
         localStorage.setItem('correo', this.email)
