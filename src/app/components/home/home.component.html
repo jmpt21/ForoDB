@@ -6,14 +6,15 @@
         <div class="card mt-5">
           <div class="card-header">Agregar pregunta</div>
           <div class="card-body text-center">
-            <select class="form-select" [(ngModel)]="categoryNew">
+            <select [(ngModel)]="categoryNew" class="form-select">
               <option value="General">General</option>
               <option value="Programación">Programación</option>
               <option value="Redes">Redes</option>
             </select>
 
-            <input type="text" name="textP" id="textP" class="form-control mt-2" placeholder="Escribe tu pregunta" [(ngModel)]="newP" />
-            <button class="btn btn-outline-primary btn-sm mt-2" (click)="crearPregunta()">
+            <input [(ngModel)]="newP" class="form-control mt-2" id="textP" name="textP" placeholder="Escribe tu pregunta"
+                   type="text"/>
+            <button (click)="crearPregunta()" class="btn btn-outline-primary btn-sm mt-2">
               <i class="fi fi-rr-add"></i>
               Agregar
             </button>
@@ -36,33 +37,29 @@
         </thead>
         <tbody>
         <tr *ngFor="let question of questionsList; let i=index">
-          <td class="text-center">{{i+1}}</td>
-          <td (keyup.escape)="cancelarEdicion(i)">
+          <td class="text-center">{{i + 1}}</td>
+          <td>
             <p id="q{{i}}">{{question['fields']['pregunta'].stringValue}}</p>
-            <select id="editSelection{{i}}" class="form-select bg-dark text-white" [(ngModel)]="categoryEdit" style="display: none">
+            <select [(ngModel)]="categoryEdit" class="form-select bg-dark text-white" id="editSelection{{i}}"
+                    style="display: none">
               <option value="General">General</option>
               <option value="Programación">Programación</option>
               <option value="Redes">Redes</option>
             </select>
-            <!--<input id="e{{i}}" type="text" class="form-control bg-dark text-white" style="display: none"
-                   [(ngModel)]="editP"
-                   value="{{question['fields']['pregunta'].stringValue}}"
-                   (keyup.enter)="editarPregunta(question['name'].split('/').pop(), i)"
-                   placeholder="Enter you new question" />-->
           </td>
           <td>{{question['fields']['correo'].stringValue}}</td>
           <td class="text-center">
             <button class="btn btn-outline-primary"><i class="fi fi-rs-eye"></i></button>
             &nbsp;
-            <!--<button class="btn btn-outline-secondary" (click)="onClickEdit(i)"><i class="fi fi-rr-edit"></i></button>-->
-
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            (click)="getPregunta(question)">
+            <button (click)="getPregunta(question)" class="btn btn-outline-secondary" data-bs-target="#exampleModal"
+                    data-bs-toggle="modal"
+                    type="button">
               <i class="fi fi-rr-edit"></i>
             </button>
             &nbsp;
-            <button class="btn btn-outline-danger" (click)="eliminarPregunta(question['name'].split('/').pop())"><i class="fi fi-br-trash"></i></button>
+            <button (click)="eliminarPregunta(question['name'].split('/').pop())" class="btn btn-outline-danger"><i
+              class="fi fi-br-trash"></i></button>
           </td>
         </tr>
         </tbody>
@@ -72,19 +69,20 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar pregunta</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
-        <input type="text" name="pregunta" id="pregunta" class="form-control" [(ngModel)]="editP"/>
+        <input [(ngModel)]="editP" class="form-control" id="pregunta" name="pregunta" type="text"/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarPregunta()">Guardar</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
+        <button (click)="modificarPregunta()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Guardar
+        </button>
       </div>
     </div>
   </div>

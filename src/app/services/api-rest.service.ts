@@ -11,9 +11,6 @@ export class ApiRestService {
 
   private baseURL : string = 'https://firestore.googleapis.com/v1/projects/foro-dudas-itsch/databases/(default)/documents/'
   private questionsURL : string = 'preguntas'
-  // private getAllQURL : string = 'preguntas'
-  // private updateQURL : string = ''
-  // private deleteQURL : string = ''
 
   constructor(private http : HttpClient) {
   }
@@ -63,26 +60,6 @@ export class ApiRestService {
     return this.http.post(`${this.baseURL}${this.questionsURL}`, newDoc)
   }
 
-  /*updateQuestion(categoria : string, pregunta: string, fecha : string, correo : string, id : string){
-    return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}`,
-      {
-        fields : {
-          categoria : {
-            stringValue : categoria
-          },
-          correo : {
-            stringValue : correo
-          },
-          fecha : {
-            timestampValue : fecha
-          },
-          pregunta : {
-            stringValue : pregunta
-          }
-        }
-      }
-    )
-  }*/
   updateQuestion(pregunta: string, id : string){
     return this.http.patch(`${this.baseURL}${this.questionsURL}/${id}?updateMask.fieldPaths=pregunta`,
       {
